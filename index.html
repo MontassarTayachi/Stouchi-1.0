@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stouchi - Gestion des Dépenses Étudiantes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            animation: fadeInDown 1s ease;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header .tagline {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-text h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            perspective: 1000px;
+        }
+
+        .screenshot-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 15px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            display: block;
+        }
+
+        .screenshot-card p {
+            text-align: center;
+            margin-top: 10px;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .features-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 50%, #e0c3fc 100%);
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .feature-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+
+        .feature-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .tech-stack {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 60px 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📱 Stouchi</h1>
+            <p class="tagline">Gestion Intelligente des Dépenses Étudiantes</p>
+            <div class="badges">
+                <span class="badge">Flutter 3.9.2+</span>
+                <span class="badge">Version 2.0</span>
+                <span class="badge">Octobre 2025</span>
+                <span class="badge">100% Responsive</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="hero-section">
+                <div class="hero-text">
+                    <h2>Prenez le contrôle de vos finances</h2>
+                    <p>Stouchi est une application mobile complète et sécurisée conçue spécialement pour les étudiants souhaitant gérer efficacement leurs dépenses quotidiennes.</p>
+                    <p>Avec son interface moderne, son système de sécurité par code PIN et ses fonctionnalités de suivi avancées, gérer votre budget n'a jamais été aussi simple et ludique.</p>
+                    <div class="cta-buttons">
+                        <a href="https://drive.google.com/file/d/1POFPIUig-o7T0i242BzX9VNJ-a228KI9/view?usp=sharing" class="btn btn-primary" target="_blank">📥 Télécharger l'APK</a>
+                        <a href="https://github.com/MontassarTayachi/Stouchi" class="btn btn-secondary" target="_blank">📂 Voir sur GitHub</a>
+                    </div>
+                </div>
+                <div class="screenshots">
+                    <div class="screenshot-card">
+                        <img src="./Écran d'accueil.jpeg" alt="Écran d'accueil">
+                        <p>Écran d'accueil</p>
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="./Paramètres.jpeg" alt="Paramètres">
+                        <p>Paramètres</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number">🔐</div>
+                    <p>Sécurité PIN avancée</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <p>Catégories de dépenses</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">📊</div>
+                    <p>Statistiques détaillées</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <p>Responsive Design</p>
+                </div>
+            </div>
+
+            <div id="features" class="features-section">
+                <h2 class="section-title">🎯 Fonctionnalités Principales</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Sécurité par Code PIN</h3>
+                        <ul>
+                            <li>Protection par code à 4 chiffres</li>
+                            <li>Interface moderne avec gradients élégants</li>
+                            <li>Clavier personnalisé avec animations</li>
+                            <li>Compteur de tentatives limitées</li>
+                            <li>Modification depuis les paramètres</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Gestion des Dépenses</h3>
+                        <ul>
+                            <li>Ajout facile avec titre et montant</li>
+                            <li>8 catégories prédéfinies</li>
+                            <li>Modification et suppression</li>
+                            <li>Filtrage par mois</li>
+                            <li>Historique complet</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Budget Mensuel</h3>
+                        <ul>
+                            <li>Définition d'un budget personnalisé</li>
+                            <li>Suivi en temps réel du pourcentage</li>
+                            <li>Alertes à 80% d'utilisation</li>
+                            <li>Notification de dépassement</li>
+                            <li>Visualisation du restant</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎬</div>
+                        <h3>Journal des Épisodes</h3>
+                        <ul>
+                            <li>Notation de 1 à 10 étoiles</li>
+                            <li>Thématique série TV unique</li>
+                            <li>Commentaires quotidiens</li>
+                            <li>Graphique d'évolution</li>
+                            <li>Analyse des tendances</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Statistiques Avancées</h3>
+                        <ul>
+                            <li>Graphique en secteurs interactif</li>
+                            <li>Répartition par catégorie</li>
+                            <li>Pourcentages détaillés</li>
+                            <li>Résumé mensuel complet</li>
+                            <li>Identification de la catégorie principale</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📤</div>
+                        <h3>Export des Données</h3>
+                        <ul>
+                            <li>Export au format CSV</li>
+                            <li>Génération de PDF avec graphiques</li>
+                            <li>Partage direct multi-plateformes</li>
+                            <li>Export mensuel personnalisé</li>
+                            <li>Analyse dans Excel/Sheets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <h2 class="section-title" style="color: white;">🛠️ Technologies Utilisées</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <h3>Flutter</h3>
+                        <p>Framework UI multiplateforme</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>SQLite</h3>
+                        <p>Base de données locale</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Provider</h3>
+                        <p>Gestion d'état réactive</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>FL Chart</h3>
+                        <p>Graphiques et visualisations</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Material Design</h3>
+                        <p>Interface moderne et cohérente</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>SharedPreferences</h3>
+                        <p>Stockage sécurisé du PIN</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title">✨ Points Forts du Design</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>100% Responsive</h3>
+                        <p>Adaptation parfaite à toutes les tailles d'écran, des petits téléphones aux tablettes, avec gestion intelligente du mode paysage.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Design Moderne</h3>
+                        <p>Gradients élégants, ombres multiples, animations fluides et cercles décoratifs pour une expérience visuelle premium.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <h3>Sécurité Renforcée</h3>
+                        <p>Stockage chiffré, tentatives limitées, mode debug pour développeurs, et validation sécurisée des opérations sensibles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title">🚀 Installation</h2>
+                <div style="background: #f5f7fa; padding: 30px; border-radius: 15px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Étapes d'installation :</h3>
+                    <ol style="line-height: 2; color: #555;">
+                        <li><strong>Cloner le projet :</strong> <code style="background: white; padding: 5px 10px; border-radius: 5px;">git clone https://github.com/MontassarTayachi/Stouchi.git</code></li>
+                        <li><strong>Installer les dépendances :</strong> <code style="background: white; padding: 5px 10px; border-radius: 5px;">flutter pub get</code></li>
+                        <li><strong>Lancer l'application :</strong> <code style="background: white; padding: 5px 10px; border-radius: 5px;">flutter run</code></li>
+                    </ol>
+                    <p style="margin-top: 20px; color: #666;">Prérequis : Flutter SDK 3.9.2+ et un émulateur Android/iOS ou appareil physique.</p>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title">🔮 Améliorations Futures</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>🔓 Biométrie</h3>
+                        <p>Empreinte digitale et Face ID</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>☁️ Cloud Sync</h3>
+                        <p>Synchronisation avec Firebase</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>🌙 Mode Sombre</h3>
+                        <p>Interface adaptable</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h3>💱 Multi-devises</h3>
+                        <p>Support international</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">Développé avec ❤️ par <strong>Montassar Tayachi</strong></p>
+            <p>Version 2.0 - Octobre 2025</p>
+            <div style="margin-top: 20px;">
+                <a href="https://github.com/MontassarTayachi/Stouchi" target="_blank">GitHub</a>
+                <a href="https://flutter.dev" target="_blank">Flutter</a>
+                <a href="#" onclick="alert('License MIT - Open Source')">Licence MIT</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
